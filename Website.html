@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CS 1130 - Introduction to Computing</title>
+<style>
+:root{--bg:#fff;--text:#111;--muted:#666;--line:#ccc;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#181818;--text:#eee;--muted:#999;--line:#444}}
+:root[data-theme="dark"]{--bg:#181818;--text:#eee;--muted:#999;--line:#444}
+html{color-scheme:light dark}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:860px;margin:0 auto;padding:24px 16px}
+nav{display:flex;flex-wrap:wrap;gap:4px 20px;border-bottom:1px solid var(--line);margin-bottom:20px;padding-bottom:8px}
+nav a{color:var(--muted);text-decoration:none}
+nav a:hover{color:var(--text)}
+nav a[aria-current="page"]{color:var(--text);font-weight:600;text-decoration:underline}
+h2{font-size:1.1rem;font-weight:600;margin:0 0 4px}
+.desc{color:var(--muted);margin:0 0 16px}
+section[hidden]{display:none}
+form{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;max-width:520px}
+.wide form{max-width:none}
+input,select,button{font:inherit;color:inherit;background:var(--bg);border:1px solid var(--line);border-radius:3px;padding:6px 8px}
+input,select{flex:1 1 140px;min-width:0}
+button{cursor:pointer}
+button:hover{border-color:var(--text)}
+button:focus-visible,input:focus-visible,select:focus-visible,nav a:focus-visible{outline:2px solid var(--text);outline-offset:2px}
+.msg{min-height:1.5em;margin:0 0 12px;color:var(--muted);font-size:.9rem}
+.wrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%}
+.res{max-width:520px;table-layout:fixed}
+th,td{padding:6px 10px;border:1px solid var(--line);text-align:left;vertical-align:top;overflow-wrap:anywhere}
+.res th{width:45%}
+th{font-weight:600}
+.pay{min-width:620px}
+.pay th,.pay td{text-align:right;white-space:nowrap}
+.pay th:nth-child(2),.pay td:nth-child(2){text-align:left}
+td.empty{text-align:center;color:var(--muted)}
+</style>
+</head>
+<body>
+<main>
+<nav aria-label="Assignments">
+<a href="#assignment-1">1. Conversion</a>
+<a href="#assignment-2">2. Income Tax</a>
+<a href="#assignment-3">3. Loops</a>
+<a href="#assignment-4">4. Payroll</a>
+</nav>
+
+<!-- Assignment 1 -->
+<section id="assignment-1">
+<h2>Assignment 1: Conversion</h2>
+<p class="desc">Celsius, Fahrenheit, meters and feet.</p>
+<form id="a1-form">
+<input id="a1-value" type="number" step="any" placeholder="Enter a value" aria-label="Value to convert">
+<select id="a1-type" aria-label="Conversion type">
+<option value="c2f">Celsius to Fahrenheit</option>
+<option value="f2c">Fahrenheit to Celsius</option>
+<option value="m2ft">Meters to Feet</option>
+<option value="ft2m">Feet to Meters</option>
+</select>
+<button type="submit">Convert</button>
+</form>
+<p class="msg" id="a1-msg" role="alert"></p>
+<table class="res" id="a1-out" hidden><tr><th>Result</th><td id="a1-result"></td></tr></table>
+</section>
+
+<!-- Assignment 2 -->
+<section id="assignment-2" hidden>
+<h2>Assignment 2: Income Tax Calculator</h2>
+<p class="desc">Philippine graduated income tax table (2023 onwards), annual income.</p>
+<form id="a2-form">
+<input id="a2-income" type="number" min="0" step="any" placeholder="Annual taxable income (PHP)" aria-label="Annual taxable income in PHP">
+<button type="submit">Compute</button>
+</form>
+<p class="msg" id="a2-msg" role="alert"></p>
+<table class="res" id="a2-out" hidden>
+<tr><th>Taxable income</th><td id="a2-taxable"></td></tr>
+<tr><th>Income tax due</th><td id="a2-tax"></td></tr>
+<tr><th>Income after tax</th><td id="a2-net"></td></tr>
+</table>
+</section>
+
+<!-- Assignment 3 -->
+<section id="assignment-3" hidden>
+<h2>Assignment 3: Factorial, Sum and Average</h2>
+<p class="desc">Of the first N natural numbers.</p>
+<form id="a3-form">
+<input id="a3-n" type="number" min="1" step="1" placeholder="Enter an integer n" aria-label="Integer n">
+<button type="submit">Compute</button>
+</form>
+<p class="msg" id="a3-msg" role="alert"></p>
+<table class="res" id="a3-out" hidden>
+<tr><th>Factorial of n (while loop)</th><td id="a3-fact"></td></tr>
+<tr><th>Sum of first n numbers (do while loop)</th><td id="a3-sum"></td></tr>
+<tr><th>Average of first n numbers (for loop)</th><td id="a3-avg"></td></tr>
+</table>
+</section>
+
+<!-- Assignment 4 -->
+<section id="assignment-4" class="wide" hidden>
+<h2>Assignment 4: Simple Payroll</h2>
+<p class="desc">Add and delete employees in the payroll list.</p>
+<form id="a4-add">
+<input id="a4-name" placeholder="Employee Name" aria-label="Employee Name" autocomplete="off">
+<input id="a4-days" type="number" min="0" step="any" placeholder="Days Worked" aria-label="Days Worked">
+<input id="a4-rate" type="number" min="0" step="any" placeholder="Daily Rate" aria-label="Daily Rate">
+<input id="a4-ded" type="number" min="0" step="any" placeholder="Deduction Amount" aria-label="Deduction Amount">
+<button type="submit">Add</button>
+</form>
+<form id="a4-del">
+<input id="a4-line" type="number" min="1" step="1" placeholder="Line No." aria-label="Line number to delete" style="flex:0 0 150px">
+<button type="submit">Delete</button>
+</form>
+<p class="msg" id="a4-msg" role="alert"></p>
+<div class="wrap">
+<table class="pay">
+<thead><tr><th>No.</th><th>Employee Name</th><th>Days Worked</th><th>Daily Rate</th><th>Gross Pay</th><th>Deduction Amount</th><th>Net Pay</th></tr></thead>
+<tbody id="a4-body"></tbody>
+</table>
+</div>
+</section>
+</main>
+
+<script>
+// ---------- Page navigation (shows one assignment at a time) ----------
+(function () {
+  const ids = ["assignment-1", "assignment-2", "assignment-3", "assignment-4"];
+
+  function showPage() {
+    let current = location.hash.slice(1);
+    if (ids.indexOf(current) === -1) current = ids[0];
+    for (let i = 0; i < ids.length; i++) {
+      document.getElementById(ids[i]).hidden = (ids[i] !== current);
+    }
+    const links = document.querySelectorAll("nav a");
+    for (let i = 0; i < links.length; i++) {
+      if (links[i].getAttribute("href") === "#" + current) links[i].setAttribute("aria-current", "page");
+      else links[i].removeAttribute("aria-current");
+    }
+  }
+
+  window.addEventListener("hashchange", showPage);
+  showPage();
+})();
+
+// ---------- Assignment 1: Conversion ----------
+(function () {
+  function celsiusToFahrenheit(c) { return c * 9 / 5 + 32; }
+  function fahrenheitToCelsius(f) { return (f - 32) * 5 / 9; }
+  function metersToFeet(m) { return m * 3.28084; }
+  function feetToMeters(ft) { return ft / 3.28084; }
+
+  document.getElementById("a1-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+    const raw = document.getElementById("a1-value").value;
+    const type = document.getElementById("a1-type").value;
+    const msg = document.getElementById("a1-msg");
+    const out = document.getElementById("a1-out");
+
+    if (raw === "" || isNaN(Number(raw))) {
+      msg.textContent = "Enter a number to convert.";
+      out.hidden = true;
+      return;
+    }
+    msg.textContent = "";
+
+    const v = Number(raw);
+    let text;
+    if (type === "c2f") text = v + " \u00B0C = " + celsiusToFahrenheit(v).toFixed(2) + " \u00B0F";
+    else if (type === "f2c") text = v + " \u00B0F = " + fahrenheitToCelsius(v).toFixed(2) + " \u00B0C";
+    else if (type === "m2ft") text = v + " m = " + metersToFeet(v).toFixed(2) + " ft";
+    else text = v + " ft = " + feetToMeters(v).toFixed(2) + " m";
+
+    document.getElementById("a1-result").textContent = text;
+    out.hidden = false;
+  });
+})();
+
+// ---------- Assignment 2: Income Tax Calculator ----------
+(function () {
+  function computeTax(income) {
+    if (income <= 250000) return 0;
+    else if (income <= 400000) return (income - 250000) * 0.15;
+    else if (income <= 800000) return 22500 + (income - 400000) * 0.20;
+    else if (income <= 2000000) return 102500 + (income - 800000) * 0.25;
+    else if (income <= 8000000) return 402500 + (income - 2000000) * 0.30;
+    else return 2202500 + (income - 8000000) * 0.35;
+  }
+
+  function money(n) {
+    return "PHP " + n.toLocaleString("en-US", {minimumFractionDigits: 2, maximumFractionDigits: 2});
+  }
+
+  document.getElementById("a2-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+    const raw = document.getElementById("a2-income").value;
+    const income = Number(raw);
+    const msg = document.getElementById("a2-msg");
+    const out = document.getElementById("a2-out");
+
+    if (raw === "" || isNaN(income) || income < 0) {
+      msg.textContent = "Enter an income of 0 or more.";
+      out.hidden = true;
+      return;
+    }
+    msg.textContent = "";
+
+    const tax = computeTax(income);
+    document.getElementById("a2-taxable").textContent = money(income);
+    document.getElementById("a2-tax").textContent = money(tax);
+    document.getElementById("a2-net").textContent = money(income - tax);
+    out.hidden = false;
+  });
+})();
+
+// ---------- Assignment 3: Factorial, Sum and Average ----------
+(function () {
+  // while loop (BigInt keeps large factorials exact)
+  function factorial(n) {
+    let result = 1n;
+    let i = 1;
+    while (i <= n) {
+      result = result * BigInt(i);
+      i = i + 1;
+    }
+    return result;
+  }
+
+  // do while loop
+  function sumOfFirstN(n) {
+    let sum = 0;
+    let i = 1;
+    do {
+      sum = sum + i;
+      i = i + 1;
+    } while (i <= n);
+    return sum;
+  }
+
+  // for loop
+  function averageOfFirstN(n) {
+    let total = 0;
+    for (let i = 1; i <= n; i++) {
+      total = total + i;
+    }
+    return total / n;
+  }
+
+  document.getElementById("a3-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+    const n = Number(document.getElementById("a3-n").value);
+    const msg = document.getElementById("a3-msg");
+    const out = document.getElementById("a3-out");
+
+    if (!Number.isInteger(n) || n < 1 || n > 1000) {
+      msg.textContent = "Enter a whole number from 1 to 1000.";
+      out.hidden = true;
+      return;
+    }
+    msg.textContent = "";
+
+    document.getElementById("a3-fact").textContent = factorial(n).toString();
+    document.getElementById("a3-sum").textContent = sumOfFirstN(n);
+    document.getElementById("a3-avg").textContent = averageOfFirstN(n);
+    out.hidden = false;
+  });
+})();
+
+// ---------- Assignment 4: Simple Payroll ----------
+(function () {
+  let employees = [];   // each item: {name, days, rate, ded}
+
+  function money(n) {
+    return n.toLocaleString("en-US", {minimumFractionDigits: 2, maximumFractionDigits: 2});
+  }
+
+  function escapeHtml(s) {
+    return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  }
+
+  // A for loop goes through the list, so line numbers always run 1, 2, 3, ...
+  function showTable() {
+    let rows = "";
+    for (let i = 0; i < employees.length; i++) {
+      const e = employees[i];
+      const gross = e.days * e.rate;   // Gross Pay = Days Worked * Daily Rate
+      const net = gross - e.ded;       // Net Pay = Gross Pay - Deduction Amount
+      rows += "<tr><td>" + (i + 1) + "</td><td>" + escapeHtml(e.name) + "</td><td>" + e.days +
+        "</td><td>" + money(e.rate) + "</td><td>" + money(gross) + "</td><td>" + money(e.ded) +
+        "</td><td>" + money(net) + "</td></tr>";
+    }
+    if (employees.length === 0) {
+      rows = '<tr><td class="empty" colspan="7">No employees yet.</td></tr>';
+    }
+    document.getElementById("a4-body").innerHTML = rows;
+  }
+
+  // Copies every employee except the chosen line into a new list (for loop).
+  function deleteEmployee(lineNo) {
+    const kept = [];
+    for (let i = 0; i < employees.length; i++) {
+      if (i + 1 !== lineNo) kept.push(employees[i]);
+    }
+    employees = kept;
+  }
+
+  document.getElementById("a4-add").addEventListener("submit", function (e) {
+    e.preventDefault();
+    const name = document.getElementById("a4-name").value.trim();
+    const days = parseFloat(document.getElementById("a4-days").value);
+    const rate = parseFloat(document.getElementById("a4-rate").value);
+    const ded = parseFloat(document.getElementById("a4-ded").value);
+    const msg = document.getElementById("a4-msg");
+
+    if (name === "" || isNaN(days) || isNaN(rate) || isNaN(ded) || days < 0 || rate < 0 || ded < 0) {
+      msg.textContent = "Enter a name and numbers of 0 or more for days, rate and deduction.";
+      return;
+    }
+    msg.textContent = "";
+    employees.push({name: name, days: days, rate: rate, ded: ded});
+    e.target.reset();
+    document.getElementById("a4-name").focus();
+    showTable();
+  });
+
+  document.getElementById("a4-del").addEventListener("submit", function (e) {
+    e.preventDefault();
+    const lineNo = parseInt(document.getElementById("a4-line").value, 10);
+    const msg = document.getElementById("a4-msg");
+
+    if (isNaN(lineNo) || lineNo < 1 || lineNo > employees.length) {
+      msg.textContent = employees.length === 0 ? "The list is empty." : "Enter a line number from 1 to " + employees.length + ".";
+      return;
+    }
+    msg.textContent = "";
+    deleteEmployee(lineNo);
+    e.target.reset();
+    showTable();
+  });
+
+  showTable();
+})();
+</script>
+</body>
+</html>
